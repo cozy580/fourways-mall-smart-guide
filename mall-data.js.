@@ -1,0 +1,54 @@
+/*
+ * Fourways Mall Smart Guide
+ * Data status must be checked before public use.
+ *
+ * "verified" means supported by the cited source,
+ * not necessarily confirmed by mall management.
+ */
+
+const mallData = {
+  project: "Fourways Mall Smart Guide",
+
+  sources: {
+    officialDirectory:
+      "https://fourwaysmall.com/store-directory",
+    officialWebsite:
+      "https://fourwaysmall.com/"
+  },
+
+  stores: [
+    {
+      name: "H&M",
+      unit: null,
+      floor: null,
+      category: "Fashion",
+      status: "needs_verification",
+      note: "Confirm current unit and floor before navigation."
+    },
+    {
+      name: "Woolworths",
+      unit: null,
+      floor: null,
+      category: "Department store",
+      status: "needs_verification",
+      note: "Confirm the exact branch location and floor."
+    }
+  ],
+
+  checkpoints: [
+    {
+      id: "entrance-1",
+      name: "Entrance 1",
+      floor: null,
+      status: "placeholder",
+      instructions:
+        "Replace with the actual entrance name and location after checking on site."
+    }
+  ],
+
+  map: {
+    status: "not_verified",
+    note:
+      "Do not use sample coordinates or drawings as real mall directions."
+  }
+};
