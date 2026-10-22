@@ -4,587 +4,486 @@
 
 <head>
 
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Fourways Mall | Smart Guide</title>
+<title>Fourways Mall Smart Guide</title>
 
-  <meta name="description" content="Find your way around Fourways Mall with the Smart Guide.">
+<style>
 
-  <style>
+*{box-sizing:border-box}
 
-    * { box-sizing: border-box; }
+body{margin:0;font-family:Arial,sans-serif;background:#f3f6fa;color:#172033}
 
-    body {
+header{background:#101b35;color:white;padding:22px 6%}
 
-      margin: 0;
+.brand{font-weight:bold;font-size:21px}
 
-      font-family: Arial, sans-serif;
+.brand span{color:#65dfca}
 
-      background: #f4f6fa;
+header p{color:#cbd5e1;margin-bottom:0}
 
-      color: #172033;
+main{max-width:1050px;margin:auto;padding:24px 16px}
 
-    }
+.hero{background:linear-gradient(135deg,#142649,#245b76);color:white;padding:28px 22px;border-radius:18px}
 
-    header {
+.hero h1{font-size:clamp(30px,6vw,44px);margin:12px 0}
 
-      background: #101b35;
+.hero p{line-height:1.6;color:#e0eaf5}
 
-      color: white;
+input,select,button{font:inherit;padding:12px;border-radius:9px}
 
-      padding: 22px 7%;
+input,select{border:1px solid #cbd5e1;min-width:0;background:white}
 
-    }
+button{border:0;background:#65dfca;color:#10243a;font-weight:bold;cursor:pointer}
 
-    .brand { font-size: 21px; font-weight: bold; }
+button:focus,input:focus,select:focus{outline:3px solid #8dcfc5;outline-offset:2px}
 
-    .brand span { color: #69e0cf; }
+.searchbar{display:flex;gap:8px;margin-top:18px}
 
-    header p { color: #cbd5e1; margin-bottom: 0; }
+.searchbar input{flex:1}
 
-    main { max-width: 1050px; margin: auto; padding: 28px 18px; }
+h2{margin-top:28px}
 
-    .hero {
+.muted{color:#64748b;line-height:1.5}
 
-      background: linear-gradient(135deg, #142649, #245b76);
+.panel{background:white;border:1px solid #e1e7ef;border-radius:14px;padding:18px;margin-top:14px}
 
-      color: white;
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
 
-      padding: 32px 24px;
+.filters button{background:#e7edf5}
 
-      border-radius: 20px;
+.filters button.active{background:#142649;color:white}
 
-    }
+.store-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
 
-    .tag {
+.store{background:white;border:1px solid #e1e7ef;border-radius:12px;padding:15px}
 
-      color: #69e0cf;
+.store h3{margin:8px 0}
 
-      font-weight: bold;
+.store p{font-size:14px;color:#64748b;line-height:1.5}
 
-      font-size: 12px;
+.small{font-size:12px;color:#64748b}
 
-      letter-spacing: 2px;
+.map-wrap{background:#e9f0f2;border:1px solid #d3e0e4;border-radius:14px;padding:12px;overflow:hidden}
 
-    }
+.map{position:relative;min-height:360px;background:#fff;border:2px solid #cbd9dc;border-radius:10px;overflow:hidden}
 
-    h1 { font-size: clamp(30px, 6vw, 46px); margin: 14px 0; }
+.corridor{position:absolute;background:#e9eff1;border:1px dashed #c5d1d5}
 
-    .hero p { color: #e0eaf5; line-height: 1.6; }
+.marker{position:absolute;transform:translate(-50%,-50%);background:#142649;color:white;border:2px solid white;border-radius:10px;padding:8px;font-size:12px;box-shadow:0 2px 7px #0002;max-width:140px}
 
-    .search {
+.marker.selected{background:#087d70;outline:3px solid #65dfca}
 
-      display: flex;
+.map-note{font-size:12px;color:#64748b;margin:10px 0 0}
 
-      gap: 8px;
+#destination{background:#e1f7f1;padding:12px;border-radius:9px;margin-top:12px;line-height:1.5}
 
-      margin-top: 22px;
+.chat-message{background:#edf3f8;padding:11px;border-radius:9px;margin:8px 0;line-height:1.5;white-space:pre-wrap}
 
-    }
+.user{background:#d9f7ef}
 
-    input, select, button {
+footer{text-align:center;padding:24px;color:#64748b;font-size:13px}
 
-      font: inherit;
+@media(max-width:480px){.searchbar{flex-direction:column}.map{min-height:320px}.marker{font-size:10px;padding:6px;max-width:105px}}
 
-      border-radius: 10px;
-
-      padding: 13px;
-
-    }
-
-    input {
-
-      min-width: 0;
-
-      flex: 1;
-
-      border: 1px solid #d4dbe5;
-
-    }
-
-    button {
-
-      border: 0;
-
-      background: #65dfca;
-
-      color: #10243a;
-
-      font-weight: bold;
-
-      cursor: pointer;
-
-    }
-
-    button:hover { filter: brightness(.95); }
-
-    h2 { margin-top: 30px; }
-
-    .grid {
-
-      display: grid;
-
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-
-      gap: 16px;
-
-    }
-
-    .card {
-
-      background: white;
-
-      padding: 20px;
-
-      border-radius: 15px;
-
-      border: 1px solid #e4e8ef;
-
-    }
-
-    .symbol { font-size: 28px; }
-
-    .muted { color: #64748b; line-height: 1.5; }
-
-    .map {
-
-      background: #e4ebef;
-
-      border: 1px solid #d5e0e6;
-
-      padding: 24px;
-
-      border-radius: 15px;
-
-      text-align: center;
-
-    }
-
-    .floor-buttons {
-
-      display: flex;
-
-      gap: 8px;
-
-      justify-content: center;
-
-      flex-wrap: wrap;
-
-      margin: 16px 0;
-
-    }
-
-    .floor-buttons button {
-
-      background: white;
-
-      border: 1px solid #cbd5e1;
-
-    }
-
-    .floor-buttons button.active {
-
-      background: #142649;
-
-      color: white;
-
-    }
-
-    .chat {
-
-      background: white;
-
-      padding: 20px;
-
-      border-radius: 15px;
-
-      border: 1px solid #e4e8ef;
-
-    }
-
-    #messages {
-
-      min-height: 65px;
-
-      max-height: 260px;
-
-      overflow-y: auto;
-
-      margin: 15px 0;
-
-    }
-
-    .message {
-
-      background: #edf3f8;
-
-      padding: 12px;
-
-      border-radius: 10px;
-
-      margin: 8px 0;
-
-      line-height: 1.5;
-
-      white-space: pre-wrap;
-
-    }
-
-    .user-message { background: #d9f7ef; }
-
-    .store { margin: 14px 0; }
-
-    .store button {
-
-      padding: 8px 12px;
-
-      font-size: 13px;
-
-    }
-
-    #results:empty { display: none; }
-
-    footer {
-
-      text-align: center;
-
-      padding: 25px;
-
-      color: #64748b;
-
-      font-size: 13px;
-
-    }
-
-    @media (max-width: 480px) {
-
-      .search { flex-direction: column; }
-
-      .hero { padding: 25px 18px; }
-
-    }
-
-  </style>
+</style>
 
 </head>
 
 <body>
 
-  <header>
+<header>
 
-    <div class="brand">FOURWAYS MALL <span>SMART GUIDE</span></div>
+  <div class="brand">FOURWAYS MALL <span>SMART GUIDE</span></div>
 
-    <p>Your mall. Easier to explore.</p>
+  <p>Your mall. Easier to explore.</p>
 
-  </header>
+</header>
 
-  <main>
+<main>
 
-    <section class="hero">
+<section class="hero">
 
-      <div class="tag">WELCOME TO YOUR SMART MALL GUIDE</div>
+  <div style="color:#65dfca;font-size:12px;letter-spacing:2px;font-weight:bold">SMART MALL NAVIGATION</div>
 
-      <h1>Find your way.<br>Discover more.</h1>
+  <h1>Find your way.<br>Discover more.</h1>
 
-      <p>Looking for a shop, restaurant or essential service?
+  <p>Search for a store or service, explore the demo map, or ask your guide for help.</p>
 
-        Search below or ask your virtual mall assistant.</p>
+  <form id="searchForm" class="searchbar">
 
-      <form class="search" id="searchForm">
+    <input id="searchInput" placeholder="Try Woolworths, food, ATM..." aria-label="Search stores">
 
-        <input id="searchInput" placeholder="Try Woolworths, food, ATM..." aria-label="Search stores">
+    <button>Search</button>
 
-        <button type="submit">Find a store</button>
+  </form>
 
-      </form>
+</section>
 
-    </section>
+<section>
 
-    <section>
+  <h2>Find a store</h2>
 
-      <h2>Explore the guide</h2>
+  <div class="filters" id="filters">
 
-      <div class="grid">
+    <button class="active" data-category="All">All</button>
 
-        <article class="card">
+    <button data-category="Shopping">Shopping</button>
 
-          <div class="symbol">🛍️</div>
+    <button data-category="Food">Food</button>
 
-          <h3>Find a store</h3>
+    <button data-category="Services">Services</button>
 
-          <p class="muted">Search the store directory to find a destination.</p>
+    <button data-category="Facilities">Facilities</button>
 
-        </article>
+  </div>
 
-        <article class="card">
+  <div id="results" class="store-list" aria-live="polite"></div>
 
-          <div class="symbol">🗺️</div>
+  <p class="small">Prototype directory: entries are examples, not verified tenant listings or actual store locations.</p>
 
-          <h3>Mall map</h3>
+</section>
 
-          <p class="muted">A starting point for our future interactive 3D map.</p>
+<section>
 
-        </article>
+  <h2>Interactive mall map</h2>
 
-        <article class="card">
+  <div class="panel">
 
-          <div class="symbol">🤖</div>
+    <label for="floorSelect"><strong>Select a demo floor</strong></label><br><br>
 
-          <h3>Virtual assistant</h3>
+    <select id="floorSelect">
 
-          <p class="muted">Ask a question and get help finding a listed destination.</p>
+      <option value="Ground floor">Ground floor</option>
 
-        </article>
+      <option value="First floor">First floor</option>
 
-      </div>
+    </select>
 
-    </section>
+    <p class="muted">Tap a marker to select a destination. The layout below is illustrative only.</p>
 
-    <section id="mapSection">
+    <div class="map-wrap">
 
-      <h2>Explore the mall map</h2>
+      <div class="map" id="map" aria-label="Illustrative clickable demo map">
 
-      <div class="map">
+        <div class="corridor" style="left:8%;top:43%;width:84%;height:18%"></div>
 
-        <div style="font-size:38px">🗺️</div>
+        <div class="corridor" style="left:40%;top:8%;width:18%;height:84%"></div>
 
-        <h3 id="floorTitle">Ground floor</h3>
-
-        <p class="muted">Interactive floor maps and walking routes are coming next.</p>
-
-        <label for="floorSelect">Choose a floor</label><br><br>
-
-        <select id="floorSelect">
-
-          <option value="Ground floor">Ground floor</option>
-
-          <option value="First floor">First floor</option>
-
-          <option value="Other floor">Other floor (details to be verified)</option>
-
-        </select>
+        <div id="markers"></div>
 
       </div>
 
-    </section>
+      <p class="map-note">DEMO MAP — not a real Fourways Mall floor plan. Positions and floors are not verified.</p>
 
-    <section>
+    </div>
 
-      <h2>Store search results</h2>
+    <div id="destination">Choose a marker or a store from the directory to select a destination.</div>
 
-      <div id="results" class="card" aria-live="polite">
+  </div>
 
-        <p class="muted">Search for a store to see matching sample entries.</p>
+</section>
 
-      </div>
+<section>
 
-      <p class="muted">Demo only: store listings and locations must be verified against an accurate mall directory.</p>
+  <h2>Ask the Smart Guide</h2>
 
-    </section>
+  <div class="panel">
 
-    <section>
+    <p class="muted">Ask about a store, food, toilets, ATMs or services in the demo directory.</p>
 
-      <h2>Ask the Smart Guide</h2>
+    <div id="messages" aria-live="polite">
 
-      <div class="chat">
+      <div class="chat-message">Hi! I'm your demo mall guide. What are you looking for?</div>
 
-        <p class="muted">Try asking: “Where is Woolworths?” or “Find a restaurant.”</p>
+    </div>
 
-        <div id="messages" aria-live="polite">
+    <form id="chatForm" class="searchbar">
 
-          <div class="message">Hi! 👋 I'm your demo mall guide. Ask me about a store or service in my sample directory.</div>
+      <input id="chatInput" placeholder="Where can I find an ATM?" aria-label="Ask the guide" required>
 
-        </div>
+      <button>Ask</button>
 
-        <form class="search" id="chatForm">
+    </form>
 
-          <input id="chatInput" placeholder="Ask your mall guide..." aria-label="Ask the mall guide" required>
+    <p class="small">This assistant uses sample data and is not yet connected to a real AI service.</p>
 
-          <button type="submit">Ask</button>
+  </div>
 
-        </form>
+</section>
 
-      </div>
+</main>
 
-    </section>
+<footer>Fourways Mall Smart Guide · Prototype in development</footer>
 
-  </main>
+<script>
 
-  <footer>
+// Example entries only. Verify every real store and location before launch.
 
-    Fourways Mall Smart Guide · Prototype in development
+const stores = [
 
-  </footer>
+ {id:"woolworths",name:"Woolworths",category:"Shopping",keywords:"clothing clothes fashion groceries food",floor:"Ground floor",x:24,y:28},
 
-  <script>
+ {id:"restaurant",name:"Restaurant area",category:"Food",keywords:"restaurant restaurants eating lunch dinner meals",floor:"Ground floor",x:72,y:27},
 
-    // These are sample entries, not a verified mall directory.
+ {id:"coffee",name:"Coffee shop",category:"Food",keywords:"coffee cafe cappuccino drinks",floor:"First floor",x:25,y:75},
 
-    const stores = [
+ {id:"atm",name:"ATM",category:"Services",keywords:"cash bank money banking",floor:"Ground floor",x:75,y:72},
 
-      { name: "Woolworths", category: "Fashion and food", floor: "Unverified" },
+ {id:"restrooms",name:"Restrooms",category:"Facilities",keywords:"toilet toilets bathroom bathrooms washroom",floor:"Ground floor",x:50,y:72},
 
-      { name: "Restaurant", category: "Food and dining", floor: "Unverified" },
+ {id:"information",name:"Information desk",category:"Services",keywords:"help assistance information customer service",floor:"First floor",x:72,y:72},
 
-      { name: "ATM", category: "Banking", floor: "Unverified" },
+ {id:"parking",name:"Parking",category:"Facilities",keywords:"car vehicle parking entrance",floor:"Ground floor",x:24,y:72}
 
-      { name: "Restrooms", category: "Facilities", floor: "Unverified" },
+];
 
-      { name: "Information Desk", category: "Customer services", floor: "Unverified" },
+let activeCategory = "All";
 
-      { name: "Parking", category: "Parking and transport", floor: "Unverified" }
+let selectedId = null;
 
-    ];
+let currentFloor = "Ground floor";
 
-    const results = document.getElementById("results");
+let currentQuery = "";
 
-    const searchInput = document.getElementById("searchInput");
+const results = document.getElementById("results");
 
-    function findStores(query) {
+const markers = document.getElementById("markers");
 
-      const q = query.toLowerCase().trim();
+const destination = document.getElementById("destination");
 
-      if (!q) return [];
+function matchesQuery(store, query) {
 
-      return stores.filter(store =>
+  const q = query.toLowerCase().trim();
 
-        (store.name + " " + store.category).toLowerCase().includes(q) ||
+  if (!q) return true;
 
-        (q.includes("bathroom") && store.name === "Restrooms") ||
+  return (store.name+" "+store.category+" "+store.keywords).toLowerCase().includes(q);
 
-        (q.includes("toilet") && store.name === "Restrooms") ||
+}
 
-        (q.includes("food") && store.category.includes("Food")) ||
+function getMatches(query=currentQuery) {
 
-        (q.includes("shop") && store.category.includes("Fashion")) ||
+  return stores.filter(s =>
 
-        (q.includes("cash") && store.name === "ATM")
+    (activeCategory==="All" || s.category===activeCategory) &&
 
-      );
+    matchesQuery(s,query)
 
-    }
+  );
 
-    function showResults(matches) {
+}
 
-      results.replaceChildren();
+function renderResults() {
 
-      if (!matches.length) {
+  results.replaceChildren();
 
-        results.textContent =
+  const found = getMatches();
 
-          "No matching sample entry found. Try Woolworths, restaurant, ATM, restrooms or parking.";
+  if (!found.length) {
 
-        return;
+    const empty = document.createElement("p");
 
-      }
+    empty.className = "muted";
 
-      matches.forEach(store => {
+    empty.textContent = "No matching demo entry. Try a different name or category.";
 
-        const item = document.createElement("div");
+    results.append(empty);
 
-        item.className = "store";
+    return;
 
-        const name = document.createElement("strong");
+  }
 
-        name.textContent = store.name;
+  found.forEach(store => {
 
-        const details = document.createElement("p");
+    const card = document.createElement("article");
 
-        details.className = "muted";
+    card.className = "store";
 
-        details.textContent = store.category + " · Location not yet verified";
+    const heading = document.createElement("h3");
 
-        item.append(name, details);
+    heading.textContent = store.name;
 
-        results.append(item);
+    const category = document.createElement("p");
 
-      });
+    category.textContent = store.category + " · Demo location";
 
-    }
+    const floor = document.createElement("p");
 
-    document.getElementById("searchForm").addEventListener("submit", event => {
+    floor.textContent = "Example floor: " + store.floor;
 
-      event.preventDefault();
+    const choose = document.createElement("button");
 
-      showResults(findStores(searchInput.value));
+    choose.textContent = "Select destination";
 
-    });
+    choose.addEventListener("click", () => selectStore(store.id));
 
-    document.getElementById("floorSelect").addEventListener("change", event => {
+    card.append(heading,category,floor,choose);
 
-      document.getElementById("floorTitle").textContent = event.target.value;
+    results.append(card);
 
-    });
+  });
 
-    function addMessage(text, isUser = false) {
+}
 
-      const message = document.createElement("div");
+function renderMap() {
 
-      message.className = "message" + (isUser ? " user-message" : "");
+  markers.replaceChildren();
 
-      message.textContent = text;
+  const visible = stores.filter(s => s.floor===currentFloor);
 
-      document.getElementById("messages").append(message);
+  visible.forEach(store => {
 
-      message.scrollIntoView({ block: "nearest" });
+    const marker = document.createElement("button");
 
-    }
+    marker.className = "marker" + (selectedId===store.id ? " selected" : "");
 
-    function answerQuestion(question) {
+    marker.style.left = store.x + "%";
 
-      const q = question.toLowerCase();
+    marker.style.top = store.y + "%";
 
-      const matches = findStores(q);
+    marker.textContent = store.name;
 
-      if (matches.length) {
+    marker.setAttribute("aria-label","Select "+store.name);
 
-        return "I found these matching sample entries: " +
+    marker.addEventListener("click", () => selectStore(store.id));
 
-          matches.map(s => s.name).join(", ") +
+    markers.append(marker);
 
-          ". Their exact floor and position still need to be verified. This demo cannot yet give you a walking route.";
+  });
 
-      }
+  if (!visible.length) {
 
-      if (q.includes("hello") || q.includes("hi")) {
+    markers.textContent = "No demo markers on this floor.";
 
-        return "Hello! 👋 Ask me to find a store, restaurant, ATM, restroom or parking.";
+  }
 
-      }
+}
 
-      if (q.includes("where") || q.includes("find") || q.includes("nearest")) {
+function selectStore(id) {
 
-        return "I can search my sample directory, but I don't have verified store locations or your live position yet. Try searching for Woolworths, ATM, restrooms or parking.";
+  const store = stores.find(s => s.id===id);
 
-      }
+  if (!store) return;
 
-      return "I'm a basic demo assistant, not a connected AI model yet. Try asking about Woolworths, restaurants, ATMs, restrooms or parking.";
+  selectedId = id;
 
-    }
+  currentFloor = store.floor;
 
-    document.getElementById("chatForm").addEventListener("submit", event => {
+  document.getElementById("floorSelect").value = currentFloor;
 
-      event.preventDefault();
+  destination.textContent = "Selected destination: " + store.name +
 
-      const input = document.getElementById("chatInput");
+    ". Example floor: " + store.floor +
 
-      const question = input.value.trim();
+    ". Exact location and walking route are not available yet.";
 
-      if (!question) return;
+  renderMap();
 
-      addMessage(question, true);
+}
 
-      addMessage(answerQuestion(question));
+document.getElementById("searchForm").addEventListener("submit", event => {
 
-      input.value = "";
+  event.preventDefault();
 
-    });
+  currentQuery = document.getElementById("searchInput").value;
 
-  </script>
+  renderResults();
+
+  const found = getMatches();
+
+  if (found.length===1) selectStore(found[0].id);
+
+});
+
+document.getElementById("filters").addEventListener("click", event => {
+
+  const button = event.target.closest("button[data-category]");
+
+  if (!button) return;
+
+  activeCategory = button.dataset.category;
+
+  document.querySelectorAll("#filters button").forEach(b =>
+
+    b.classList.toggle("active",b===button)
+
+  );
+
+  renderResults();
+
+});
+
+document.getElementById("floorSelect").addEventListener("change", event => {
+
+  currentFloor = event.target.value;
+
+  selectedId = null;
+
+  destination.textContent = "Showing illustrative markers for " + currentFloor +
+
+    ". Choose a marker to select a destination.";
+
+  renderMap();
+
+});
+
+function addMessage(text,isUser=false) {
+
+  const div = document.createElement("div");
+
+  div.className = "chat-message" + (isUser ? " user" : "");
+
+  div.textContent = text;
+
+  const messages = document.getElementById("messages");
+
+  messages.append(div);
+
+  div.scrollIntoView({block:"nearest"});
+
+}
+
+document.getElementById("chatForm").addEventListener("submit", event => {
+
+  event.preventDefault();
+
+  const input = document.getElementById("chatInput");
+
+  const question = input.value.trim();
+
+  if (!question) return;
+
+  addMessage(question,true);
+
+  const found = stores.filter(s => matchesQuery(s,question));
+
+  if (found.length) {
+
+    addMessage("I found these demo entries: " +
+
+      found.map(s=>s.name+" ("+s.floor+")").join(", ") +
+
+      ". These example locations are not verified, and I cannot provide a real walking route yet.");
+
+  } else {
+
+    addMessage("I couldn't find a match in my sample directory. Try Woolworths, coffee, restaurant, ATM, toilet, parking or information desk.");
+
+  }
+
+  input.value = "";
+
+});
+
+renderResults();
+
+renderMap();
+
+</script>
 
 </body>
 
 </html>
-
