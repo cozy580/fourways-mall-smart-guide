@@ -52,4 +52,5 @@ const mallData = {
       "Do not use sample coordinates or drawings as real mall directions."
   }
 };
+
 window.mallData = mallData;
