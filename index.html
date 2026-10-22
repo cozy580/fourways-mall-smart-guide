@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Fourways Mall | Smart Guide</title>
+
+  <meta name="description" content="Find your way around Fourways Mall with the Smart Guide.">
+
+  <style>
+
+    * { box-sizing: border-box; }
+
+    body {
+
+      margin: 0;
+
+      font-family: Arial, sans-serif;
+
+      background: #f4f6fa;
+
+      color: #172033;
+
+    }
+
+    header {
+
+      background: #101b35;
+
+      color: white;
+
+      padding: 22px 7%;
+
+    }
+
+    .brand { font-size: 21px; font-weight: bold; }
+
+    .brand span { color: #69e0cf; }
+
+    header p { color: #cbd5e1; margin-bottom: 0; }
+
+    main { max-width: 1050px; margin: auto; padding: 28px 18px; }
+
+    .hero {
+
+      background: linear-gradient(135deg, #142649, #245b76);
+
+      color: white;
+
+      padding: 32px 24px;
+
+      border-radius: 20px;
+
+    }
+
+    .tag {
+
+      color: #69e0cf;
+
+      font-weight: bold;
+
+      font-size: 12px;
+
+      letter-spacing: 2px;
+
+    }
+
+    h1 { font-size: clamp(30px, 6vw, 46px); margin: 14px 0; }
+
+    .hero p { color: #e0eaf5; line-height: 1.6; }
+
+    .search {
+
+      display: flex;
+
+      gap: 8px;
+
+      margin-top: 22px;
+
+    }
+
+    input, select, button {
+
+      font: inherit;
+
+      border-radius: 10px;
+
+      padding: 13px;
+
+    }
+
+    input {
+
+      min-width: 0;
+
+      flex: 1;
+
+      border: 1px solid #d4dbe5;
+
+    }
+
+    button {
+
+      border: 0;
+
+      background: #65dfca;
+
+      color: #10243a;
+
+      font-weight: bold;
+
+      cursor: pointer;
+
+    }
+
+    button:hover { filter: brightness(.95); }
+
+    h2 { margin-top: 30px; }
+
+    .grid {
+
+      display: grid;
+
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+
+      gap: 16px;
+
+    }
+
+    .card {
+
+      background: white;
+
+      padding: 20px;
+
+      border-radius: 15px;
+
+      border: 1px solid #e4e8ef;
+
+    }
+
+    .symbol { font-size: 28px; }
+
+    .muted { color: #64748b; line-height: 1.5; }
+
+    .map {
+
+      background: #e4ebef;
+
+      border: 1px solid #d5e0e6;
+
+      padding: 24px;
+
+      border-radius: 15px;
+
+      text-align: center;
+
+    }
+
+    .floor-buttons {
+
+      display: flex;
+
+      gap: 8px;
+
+      justify-content: center;
+
+      flex-wrap: wrap;
+
+      margin: 16px 0;
+
+    }
+
+    .floor-buttons button {
+
+      background: white;
+
+      border: 1px solid #cbd5e1;
+
+    }
+
+    .floor-buttons button.active {
+
+      background: #142649;
+
+      color: white;
+
+    }
+
+    .chat {
+
+      background: white;
+
+      padding: 20px;
+
+      border-radius: 15px;
+
+      border: 1px solid #e4e8ef;
+
+    }
+
+    #messages {
+
+      min-height: 65px;
+
+      max-height: 260px;
+
+      overflow-y: auto;
+
+      margin: 15px 0;
+
+    }
+
+    .message {
+
+      background: #edf3f8;
+
+      padding: 12px;
+
+      border-radius: 10px;
+
+      margin: 8px 0;
+
+      line-height: 1.5;
+
+      white-space: pre-wrap;
+
+    }
+
+    .user-message { background: #d9f7ef; }
+
+    .store { margin: 14px 0; }
+
+    .store button {
+
+      padding: 8px 12px;
+
+      font-size: 13px;
+
+    }
+
+    #results:empty { display: none; }
+
+    footer {
+
+      text-align: center;
+
+      padding: 25px;
+
+      color: #64748b;
+
+      font-size: 13px;
+
+    }
+
+    @media (max-width: 480px) {
+
+      .search { flex-direction: column; }
+
+      .hero { padding: 25px 18px; }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <header>
+
+    <div class="brand">FOURWAYS MALL <span>SMART GUIDE</span></div>
+
+    <p>Your mall. Easier to explore.</p>
+
+  </header>
+
+  <main>
+
+    <section class="hero">
+
+      <div class="tag">WELCOME TO YOUR SMART MALL GUIDE</div>
+
+      <h1>Find your way.<br>Discover more.</h1>
+
+      <p>Looking for a shop, restaurant or essential service?
+
+        Search below or ask your virtual mall assistant.</p>
+
+      <form class="search" id="searchForm">
+
+        <input id="searchInput" placeholder="Try Woolworths, food, ATM..." aria-label="Search stores">
+
+        <button type="submit">Find a store</button>
+
+      </form>
+
+    </section>
+
+    <section>
+
+      <h2>Explore the guide</h2>
+
+      <div class="grid">
+
+        <article class="card">
+
+          <div class="symbol">🛍️</div>
+
+          <h3>Find a store</h3>
+
+          <p class="muted">Search the store directory to find a destination.</p>
+
+        </article>
+
+        <article class="card">
+
+          <div class="symbol">🗺️</div>
+
+          <h3>Mall map</h3>
+
+          <p class="muted">A starting point for our future interactive 3D map.</p>
+
+        </article>
+
+        <article class="card">
+
+          <div class="symbol">🤖</div>
+
+          <h3>Virtual assistant</h3>
+
+          <p class="muted">Ask a question and get help finding a listed destination.</p>
+
+        </article>
+
+      </div>
+
+    </section>
+
+    <section id="mapSection">
+
+      <h2>Explore the mall map</h2>
+
+      <div class="map">
+
+        <div style="font-size:38px">🗺️</div>
+
+        <h3 id="floorTitle">Ground floor</h3>
+
+        <p class="muted">Interactive floor maps and walking routes are coming next.</p>
+
+        <label for="floorSelect">Choose a floor</label><br><br>
+
+        <select id="floorSelect">
+
+          <option value="Ground floor">Ground floor</option>
+
+          <option value="First floor">First floor</option>
+
+          <option value="Other floor">Other floor (details to be verified)</option>
+
+        </select>
+
+      </div>
+
+    </section>
+
+    <section>
+
+      <h2>Store search results</h2>
+
+      <div id="results" class="card" aria-live="polite">
+
+        <p class="muted">Search for a store to see matching sample entries.</p>
+
+      </div>
+
+      <p class="muted">Demo only: store listings and locations must be verified against an accurate mall directory.</p>
+
+    </section>
+
+    <section>
+
+      <h2>Ask the Smart Guide</h2>
+
+      <div class="chat">
+
+        <p class="muted">Try asking: “Where is Woolworths?” or “Find a restaurant.”</p>
+
+        <div id="messages" aria-live="polite">
+
+          <div class="message">Hi! 👋 I'm your demo mall guide. Ask me about a store or service in my sample directory.</div>
+
+        </div>
+
+        <form class="search" id="chatForm">
+
+          <input id="chatInput" placeholder="Ask your mall guide..." aria-label="Ask the mall guide" required>
+
+          <button type="submit">Ask</button>
+
+        </form>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer>
+
+    Fourways Mall Smart Guide · Prototype in development
+
+  </footer>
+
+  <script>
+
+    // These are sample entries, not a verified mall directory.
+
+    const stores = [
+
+      { name: "Woolworths", category: "Fashion and food", floor: "Unverified" },
+
+      { name: "Restaurant", category: "Food and dining", floor: "Unverified" },
+
+      { name: "ATM", category: "Banking", floor: "Unverified" },
+
+      { name: "Restrooms", category: "Facilities", floor: "Unverified" },
+
+      { name: "Information Desk", category: "Customer services", floor: "Unverified" },
+
+      { name: "Parking", category: "Parking and transport", floor: "Unverified" }
+
+    ];
+
+    const results = document.getElementById("results");
+
+    const searchInput = document.getElementById("searchInput");
+
+    function findStores(query) {
+
+      const q = query.toLowerCase().trim();
+
+      if (!q) return [];
+
+      return stores.filter(store =>
+
+        (store.name + " " + store.category).toLowerCase().includes(q) ||
+
+        (q.includes("bathroom") && store.name === "Restrooms") ||
+
+        (q.includes("toilet") && store.name === "Restrooms") ||
+
+        (q.includes("food") && store.category.includes("Food")) ||
+
+        (q.includes("shop") && store.category.includes("Fashion")) ||
+
+        (q.includes("cash") && store.name === "ATM")
+
+      );
+
+    }
+
+    function showResults(matches) {
+
+      results.replaceChildren();
+
+      if (!matches.length) {
+
+        results.textContent =
+
+          "No matching sample entry found. Try Woolworths, restaurant, ATM, restrooms or parking.";
+
+        return;
+
+      }
+
+      matches.forEach(store => {
+
+        const item = document.createElement("div");
+
+        item.className = "store";
+
+        const name = document.createElement("strong");
+
+        name.textContent = store.name;
+
+        const details = document.createElement("p");
+
+        details.className = "muted";
+
+        details.textContent = store.category + " · Location not yet verified";
+
+        item.append(name, details);
+
+        results.append(item);
+
+      });
+
+    }
+
+    document.getElementById("searchForm").addEventListener("submit", event => {
+
+      event.preventDefault();
+
+      showResults(findStores(searchInput.value));
+
+    });
+
+    document.getElementById("floorSelect").addEventListener("change", event => {
+
+      document.getElementById("floorTitle").textContent = event.target.value;
+
+    });
+
+    function addMessage(text, isUser = false) {
+
+      const message = document.createElement("div");
+
+      message.className = "message" + (isUser ? " user-message" : "");
+
+      message.textContent = text;
+
+      document.getElementById("messages").append(message);
+
+      message.scrollIntoView({ block: "nearest" });
+
+    }
+
+    function answerQuestion(question) {
+
+      const q = question.toLowerCase();
+
+      const matches = findStores(q);
+
+      if (matches.length) {
+
+        return "I found these matching sample entries: " +
+
+          matches.map(s => s.name).join(", ") +
+
+          ". Their exact floor and position still need to be verified. This demo cannot yet give you a walking route.";
+
+      }
+
+      if (q.includes("hello") || q.includes("hi")) {
+
+        return "Hello! 👋 Ask me to find a store, restaurant, ATM, restroom or parking.";
+
+      }
+
+      if (q.includes("where") || q.includes("find") || q.includes("nearest")) {
+
+        return "I can search my sample directory, but I don't have verified store locations or your live position yet. Try searching for Woolworths, ATM, restrooms or parking.";
+
+      }
+
+      return "I'm a basic demo assistant, not a connected AI model yet. Try asking about Woolworths, restaurants, ATMs, restrooms or parking.";
+
+    }
+
+    document.getElementById("chatForm").addEventListener("submit", event => {
+
+      event.preventDefault();
+
+      const input = document.getElementById("chatInput");
+
+      const question = input.value.trim();
+
+      if (!question) return;
+
+      addMessage(question, true);
+
+      addMessage(answerQuestion(question));
+
+      input.value = "";
+
+    });
+
+  </script>
+
+</body>
+
+</html>
+
