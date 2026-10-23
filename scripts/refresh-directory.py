@@ -5,6 +5,8 @@ from html.parser import HTMLParser
 from pathlib import Path
 from urllib.request import Request, urlopen
 import json
+import time
+from urllib.error import HTTPError, URLError
 
 SOURCE = "https://fourwaysmall.com/store-directory-all.php"
 OUTPUT = Path(__file__).resolve().parents[1] / "mall-data.js"
@@ -63,9 +65,23 @@ class StoreParser(HTMLParser):
 
 
 def main():
-    request = Request(SOURCE, headers={"User-Agent": "FourwaysMallGuideDirectorySync/1.0"})
-    with urlopen(request, timeout=30) as response:
-        html = response.read().decode("utf-8", errors="replace")
+    request = Request(SOURCE, headers={
+        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml",
+    })
+    html = None
+    for attempt in range(3):
+        try:
+            with urlopen(request, timeout=45) as response:
+                html = response.read().decode("utf-8", errors="replace")
+            break
+        except HTTPError as error:
+            if error.code < 500 or attempt == 2:
+                raise
+        except (TimeoutError, URLError):
+            if attempt == 2:
+                raise
+        time.sleep(3 * (attempt + 1))
     parser = StoreParser()
     parser.feed(html)
     if len(parser.paragraphs) < 250:

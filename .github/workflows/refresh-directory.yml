@@ -34,7 +34,7 @@ jobs:
           python-version: "3.x"
 
       - name: Refresh the directory snapshot
-        run: python scripts/refresh-directory.py
+        run: python scripts/refresh-directory.py || echo "::warning title=Directory refresh::The mall directory could not be reached; publishing the last successful snapshot."
 
       - name: Save refreshed directory when it changed
         run: |
