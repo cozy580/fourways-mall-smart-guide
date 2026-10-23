@@ -9,6 +9,7 @@ import time
 from urllib.error import HTTPError, URLError
 
 SOURCE = "https://fourwaysmall.com/store-directory-all.php"
+FETCH_URL = "https://r.jina.ai/https://fourwaysmall.com/store-directory-all.php"
 OUTPUT = Path(__file__).resolve().parents[1] / "mall-data.js"
 
 
@@ -65,9 +66,11 @@ class StoreParser(HTMLParser):
 
 
 def main():
-    request = Request(SOURCE, headers={
+    request = Request(FETCH_URL, headers={
         "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
-        "Accept": "text/html,application/xhtml+xml",
+        "Accept": "text/plain",
+        "X-Respond-With": "html",
+        "X-No-Cache": "true",
     })
     html = None
     for attempt in range(3):

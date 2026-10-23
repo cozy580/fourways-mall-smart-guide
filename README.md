@@ -4,7 +4,7 @@ A responsive visitor guide published with GitHub Pages.
 
 ## Store directory updates
 
-The source of truth is Fourways Mall's [public store directory](https://fourwaysmall.com/store-directory-all.php). `scripts/refresh-directory.py` reads the official listing and updates `mall-data.js`, preserving the names, published unit codes, telephone numbers and store links. If the source page changes unexpectedly or returns too few entries, the refresh stops without replacing the current snapshot.
+The source of truth is Fourways Mall's [public store directory](https://fourwaysmall.com/store-directory-all.php). `scripts/refresh-directory.py` reads the official listing through a cache-bypassed HTML fetch relay because GitHub-hosted runners cannot reliably connect directly to the mall's web server. It updates `mall-data.js`, preserving names, published unit codes, telephone numbers and store links. If the source page changes unexpectedly or returns too few entries, the refresh stops without replacing the current snapshot.
 
 The **Refresh directory and publish site** GitHub Actions workflow runs after a push, when manually requested, and every six hours. It commits a new directory snapshot only if the official listing changed, then deploys the refreshed site to GitHub Pages. GitHub schedule runs can be delayed, so updates are periodic rather than instantaneous.
 
