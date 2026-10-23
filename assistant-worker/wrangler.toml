@@ -1,0 +1,15 @@
+name = "fourways-mall-guide"
+main = "worker.js"
+compatibility_date = "2026-10-23"
+
+[vars]
+ALLOWED_ORIGIN = "https://cozy580.github.io"
+OPENAI_MODEL = "gpt-5-mini"
+
+[[ratelimits]]
+name = "AI_LIMITER"
+namespace_id = "271001"
+
+  [ratelimits.simple]
+  limit = 8
+  period = 60

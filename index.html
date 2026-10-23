@@ -1,491 +1,115 @@
-<!DOCTYPE html>
-
+<!doctype html>
 <html lang="en">
-
 <head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Fourways Mall Smart Guide</title>
-
-<style>
-
-*{box-sizing:border-box}
-
-body{margin:0;font-family:Arial,sans-serif;background:#f3f6fa;color:#172033}
-
-header{background:#101b35;color:white;padding:22px 6%}
-
-.brand{font-weight:bold;font-size:21px}
-
-.brand span{color:#65dfca}
-
-header p{color:#cbd5e1;margin-bottom:0}
-
-main{max-width:1050px;margin:auto;padding:24px 16px}
-
-.hero{background:linear-gradient(135deg,#142649,#245b76);color:white;padding:28px 22px;border-radius:18px}
-
-.hero h1{font-size:clamp(30px,6vw,44px);margin:12px 0}
-
-.hero p{line-height:1.6;color:#e0eaf5}
-
-input,select,button{font:inherit;padding:12px;border-radius:9px}
-
-input,select{border:1px solid #cbd5e1;min-width:0;background:white}
-
-button{border:0;background:#65dfca;color:#10243a;font-weight:bold;cursor:pointer}
-
-button:focus,input:focus,select:focus{outline:3px solid #8dcfc5;outline-offset:2px}
-
-.searchbar{display:flex;gap:8px;margin-top:18px}
-
-.searchbar input{flex:1}
-
-h2{margin-top:28px}
-
-.muted{color:#64748b;line-height:1.5}
-
-.panel{background:white;border:1px solid #e1e7ef;border-radius:14px;padding:18px;margin-top:14px}
-
-.filters{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
-
-.filters button{background:#e7edf5}
-
-.filters button.active{background:#142649;color:white}
-
-.store-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
-
-.store{background:white;border:1px solid #e1e7ef;border-radius:12px;padding:15px}
-
-.store h3{margin:8px 0}
-
-.store p{font-size:14px;color:#64748b;line-height:1.5}
-
-.small{font-size:12px;color:#64748b}
-
-.map-wrap{background:#e9f0f2;border:1px solid #d3e0e4;border-radius:14px;padding:12px;overflow:hidden}
-
-.map{position:relative;min-height:360px;background:#fff;border:2px solid #cbd9dc;border-radius:10px;overflow:hidden}
-
-.corridor{position:absolute;background:#e9eff1;border:1px dashed #c5d1d5}
-
-.marker{position:absolute;transform:translate(-50%,-50%);background:#142649;color:white;border:2px solid white;border-radius:10px;padding:8px;font-size:12px;box-shadow:0 2px 7px #0002;max-width:140px}
-
-.marker.selected{background:#087d70;outline:3px solid #65dfca}
-
-.map-note{font-size:12px;color:#64748b;margin:10px 0 0}
-
-#destination{background:#e1f7f1;padding:12px;border-radius:9px;margin-top:12px;line-height:1.5}
-
-.chat-message{background:#edf3f8;padding:11px;border-radius:9px;margin:8px 0;line-height:1.5;white-space:pre-wrap}
-
-.user{background:#d9f7ef}
-
-footer{text-align:center;padding:24px;color:#64748b;font-size:13px}
-
-@media(max-width:480px){.searchbar{flex-direction:column}.map{min-height:320px}.marker{font-size:10px;padding:6px;max-width:105px}}
-
-</style>
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f6f2">
+  <meta name="description" content="Search the Fourways Mall store directory and find the unit code published by the mall.">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./assets/app-icon.svg" type="image/svg+xml">
+  <title>Fourways Mall Guide | Find your next stop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--ink:#192523;--muted:#64716d;--paper:#f7f6f2;--white:#fff;--line:#e7e8e2;--green:#174e43;--mint:#d9e9df;--lime:#d9ef90;--orange:#da714b;--shadow:0 18px 55px #17332b0d}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:"DM Sans",Arial,sans-serif;-webkit-font-smoothing:antialiased}a{color:inherit}button,input{font:inherit}button,a{-webkit-tap-highlight-color:transparent}.shell{max-width:1240px;width:calc(100% - 64px);margin:auto}
+    .topbar{height:78px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e7e8e2}.brand{display:flex;align-items:center;gap:12px;text-decoration:none}.brand-mark{width:35px;height:35px;border-radius:12px;background:var(--green);display:grid;place-items:center;color:var(--lime);font-weight:800;font-size:17px}.brand-name{font:800 15px Manrope,sans-serif;letter-spacing:-.4px}.brand-name small{display:block;font:600 10px "DM Sans",sans-serif;letter-spacing:1.35px;color:var(--muted);margin-top:1px}.nav{display:flex;gap:30px;align-items:center}.nav a{text-decoration:none;font-size:13px;font-weight:600;color:#485651}.nav a:hover{color:var(--orange)}.nav .nav-cta{padding:11px 17px;border-radius:999px;background:var(--green);color:white}
+    .hero{padding:59px 0 48px;display:grid;grid-template-columns:1.08fr .92fr;gap:38px;align-items:center}.eyebrow{display:inline-flex;align-items:center;gap:8px;text-transform:uppercase;letter-spacing:1.6px;font-size:10px;font-weight:700;color:var(--green)}.eyebrow:before{content:"";width:20px;height:1px;background:var(--orange)}h1,h2,h3,p{margin-top:0}h1{font:700 clamp(42px,5.4vw,68px)/1.06 Manrope,sans-serif;letter-spacing:-3.8px;margin:19px 0 17px;max-width:650px}h1 em{font-style:normal;color:var(--green)}.hero-copy{font-size:16px;line-height:1.75;color:var(--muted);max-width:520px;margin-bottom:26px}.searchbox{height:62px;max-width:590px;display:flex;align-items:center;background:white;border:1px solid var(--line);border-radius:14px;padding:6px 7px 6px 18px;box-shadow:0 8px 26px #21362c0b}.search-icon{color:#728079;font-size:20px;margin-right:11px}.searchbox input{border:0;outline:0;min-width:0;flex:1;color:var(--ink);font-size:14px;background:transparent}.searchbox input::placeholder{color:#9aa29e}.searchbox button{border:0;border-radius:10px;padding:12px 20px;background:var(--green);color:white;font-size:13px;font-weight:700;cursor:pointer}.searchbox button:hover,.nav-cta:hover{background:#236858}.search-hint{font-size:11px;color:#87928d;margin:11px 0 0 3px}.hero-visual{height:340px;border-radius:24px;position:relative;overflow:hidden;background:linear-gradient(142deg,#dce9df,#cedfd3 55%,#e6e5d8);box-shadow:var(--shadow)}.hero-visual:before{content:"";position:absolute;width:360px;height:360px;border-radius:50%;right:-50px;top:-85px;background:#f1f2e7}.hero-visual:after{content:"";position:absolute;width:210px;height:210px;border-radius:50%;left:-54px;bottom:-110px;background:#9ebbaa}.visual-orbit{position:absolute;border:1px solid #174e4326;border-radius:50%;width:315px;height:315px;right:36px;top:12px}.visual-orbit:before,.visual-orbit:after{content:"";position:absolute;border:1px solid #174e431c;border-radius:50%;inset:33px}.visual-orbit:after{inset:70px}.visual-card{position:absolute;z-index:1;left:33px;top:33px;background:#ffffffeb;backdrop-filter:blur(8px);padding:16px 18px;border-radius:14px;box-shadow:0 12px 40px #143b2b16;max-width:235px}.visual-card span{display:block;color:var(--muted);font-size:10px;letter-spacing:1px;text-transform:uppercase;font-weight:700;margin-bottom:7px}.visual-card strong{font:700 19px Manrope,sans-serif;letter-spacing:-.4px}.pin{position:absolute;z-index:1;width:48px;height:48px;border-radius:50% 50% 50% 8px;transform:rotate(-45deg);display:grid;place-items:center;background:var(--orange);color:white;box-shadow:0 10px 22px #a6503538}.pin b{transform:rotate(45deg);font-size:18px}.pin-one{top:128px;left:48%}.pin-two{top:205px;left:70%;background:var(--green)}.map-lines{position:absolute;z-index:1;inset:0}.map-lines i{position:absolute;display:block;border-radius:99px;background:#fff9;border:1px solid #ffffff91;transform:rotate(-34deg)}.map-lines i:nth-child(1){width:230px;height:24px;left:27%;top:59%}.map-lines i:nth-child(2){width:220px;height:19px;left:42%;top:42%;transform:rotate(34deg)}.map-lines i:nth-child(3){width:130px;height:17px;left:61%;top:69%;transform:rotate(8deg)}.visual-caption{position:absolute;z-index:2;right:22px;bottom:18px;font-size:10px;color:#54665e;letter-spacing:.7px;text-transform:uppercase;font-weight:700}
+    .trust-strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;padding:18px 0;margin-bottom:62px}.trust-strip p{margin:0;font-size:12px;color:var(--muted)}.trust-strip strong{color:var(--ink)}.source-badge{display:inline-flex;align-items:center;gap:7px;padding:7px 11px;border-radius:99px;background:#e8eee7;color:var(--green);font-size:10px;font-weight:700}.source-dot{width:6px;height:6px;background:#5d986f;border-radius:50%}
+    .directory{padding:0 0 78px;scroll-margin-top:24px}.section-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:23px;gap:20px}.section-head h2{font:700 32px Manrope,sans-serif;letter-spacing:-1.4px;margin:9px 0 5px}.section-head p{font-size:13px;color:var(--muted);margin:0}.result-count{font-size:12px;color:var(--muted);white-space:nowrap;padding-bottom:4px}.result-count strong{color:var(--ink)}.controls{display:flex;gap:12px;margin-bottom:18px}.controls input,.controls select{border:1px solid var(--line);background:#fff;border-radius:11px;padding:12px 14px;color:var(--ink);font-size:13px;outline:none}.controls input{flex:1;min-width:130px}.controls input:focus,.controls select:focus{border-color:#77a18f;box-shadow:0 0 0 3px #174e4310}.controls select{min-width:182px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.store{min-height:154px;background:white;border:1px solid var(--line);border-radius:14px;padding:17px 17px 15px;display:flex;flex-direction:column;transition:transform .18s,border-color .18s,box-shadow .18s}.store:hover{transform:translateY(-2px);border-color:#c9d8cf;box-shadow:var(--shadow)}.store-top{display:flex;justify-content:space-between;align-items:start;gap:8px}.store h3{font:700 15px Manrope,sans-serif;letter-spacing:-.3px;margin:0;line-height:1.4}.unit{flex:none;border:1px solid #dce7df;background:#f2f6f1;color:var(--green);padding:5px 8px;border-radius:7px;font-size:10px;font-weight:700;max-width:115px;overflow:hidden;text-overflow:ellipsis}.unit.missing{background:#f6f4ef;border-color:#ece9e1;color:#7f8178;font-weight:600}.store-bottom{margin-top:auto;padding-top:18px;display:flex;justify-content:space-between;align-items:center;gap:8px}.phone{font-size:11px;color:var(--muted);text-decoration:none}.phone:hover{color:var(--green)}.details{font-size:11px;font-weight:700;color:var(--green);text-decoration:none;white-space:nowrap}.details:hover{text-decoration:underline}.no-results{grid-column:1/-1;background:white;border:1px dashed #d6ddd5;border-radius:14px;padding:35px;text-align:center;color:var(--muted);font-size:14px}.load-more{display:flex;justify-content:center;margin-top:22px}.load-more button{border:1px solid #d8ded7;background:transparent;color:var(--green);padding:11px 19px;border-radius:999px;font-weight:700;font-size:12px;cursor:pointer}.load-more button:hover{background:#eaf0e9}
+    .map-section{padding:59px 0 66px;background:#edf0e9;border-top:1px solid #e2e5dd;border-bottom:1px solid #e2e5dd;scroll-margin-top:20px}.map-grid{display:grid;grid-template-columns:1fr 1.03fr;gap:54px;align-items:center}.map-copy h2{font:700 34px/1.18 Manrope,sans-serif;letter-spacing:-1.6px;margin:11px 0 13px;max-width:450px}.map-copy>p{font-size:13px;line-height:1.8;color:var(--muted);max-width:480px}.map-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}.button-primary,.button-secondary{display:inline-flex;align-items:center;justify-content:center;gap:9px;border-radius:10px;padding:12px 16px;text-decoration:none;font-size:12px;font-weight:700}.button-primary{background:var(--green);color:white}.button-primary:hover{background:#236858}.button-secondary{background:white;border:1px solid var(--line);color:var(--ink)}.button-secondary:hover{border-color:#a8b9ad}.map-reference{background:white;border:1px solid #dfe4dc;border-radius:17px;padding:22px;box-shadow:var(--shadow)}.ref-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px}.ref-top strong{font:700 15px Manrope,sans-serif}.ref-top span{font-size:10px;color:#7d8781}.level-list{display:grid;gap:8px}.level-row{display:flex;align-items:center;gap:12px;padding:12px;background:#f6f7f3;border-radius:10px}.level-icon{flex:none;width:34px;height:34px;background:#e6eee7;color:var(--green);border-radius:9px;display:grid;place-items:center;font-size:11px;font-weight:800}.level-row strong{display:block;font-size:12px}.level-row small{display:block;font-size:10px;color:var(--muted);margin-top:3px;line-height:1.4}.map-disclaimer{font-size:10px;line-height:1.65;color:#737f78;margin:15px 0 0;padding-top:14px;border-top:1px solid #eceee8}.map-disclaimer strong{color:#4c5b53}
+    .guide{padding:58px 0 68px;scroll-margin-top:20px}.guide-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:54px;align-items:start}.guide-copy h2{font:700 34px/1.15 Manrope,sans-serif;letter-spacing:-1.4px;margin:12px 0}.guide-copy p{font-size:13px;line-height:1.8;color:var(--muted)}.guide-note{font-size:10px!important;color:#8a918d!important}.chat-panel{background:white;border:1px solid var(--line);border-radius:17px;overflow:hidden;box-shadow:var(--shadow)}.chat-head{padding:17px 19px;border-bottom:1px solid #eef0eb;display:flex;justify-content:space-between;align-items:center}.chat-head strong{font:700 14px Manrope,sans-serif}.chat-state{font-size:10px;color:var(--green);display:flex;align-items:center;gap:6px}.chat-state:before{content:"";width:6px;height:6px;border-radius:50%;background:#65a579}.chat-log{min-height:174px;max-height:320px;overflow:auto;padding:17px;display:flex;flex-direction:column;gap:10px}.chat-bubble{max-width:88%;padding:11px 13px;border-radius:12px;font-size:12px;line-height:1.65;background:#f2f4ef;white-space:pre-wrap}.chat-bubble.user{align-self:flex-end;background:#e3efe7}.chat-links{display:block;margin-top:8px;font-size:11px}.chat-links a{color:var(--green);font-weight:700}.quick-prompts{display:flex;gap:7px;flex-wrap:wrap;padding:0 17px 13px}.quick-prompts button{border:1px solid #e2e7e0;border-radius:99px;background:#fff;padding:7px 10px;color:#53625a;font-size:10px;cursor:pointer}.quick-prompts button:hover{border-color:#a9beb0;color:var(--green)}.chat-form{border-top:1px solid #eef0eb;display:flex;gap:8px;padding:12px}.chat-form input{flex:1;min-width:0;border:1px solid var(--line);border-radius:10px;padding:11px 12px;font-size:12px;outline:none}.chat-form input:focus{border-color:#77a18f}.chat-form button{border:0;border-radius:10px;padding:0 16px;color:#fff;background:var(--green);font-size:12px;font-weight:700;cursor:pointer}.chat-form button:disabled{opacity:.55;cursor:wait}.gps-button{margin-top:12px;border:1px solid #d8ded7;background:#fff;color:var(--green);padding:10px 13px;border-radius:9px;font-size:11px;font-weight:700;cursor:pointer}.gps-status{font-size:10px;line-height:1.6;color:var(--muted);margin:9px 0 0;min-height:16px}
+    footer{padding:25px 0;color:#808983;font-size:10px}footer .footer-inner{display:flex;justify-content:space-between;gap:18px;align-items:center}footer a{color:var(--green);text-decoration:none;font-weight:700}.footer-brand{color:var(--ink);font-weight:700}
+    @media(max-width:850px){.shell{width:calc(100% - 40px)}.hero{grid-template-columns:1fr;gap:28px;padding-top:45px}.hero-visual{height:290px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.map-grid{gap:30px}.guide-grid{grid-template-columns:1fr;gap:22px}.nav{gap:18px}}
+    @media(max-width:560px){.shell{width:calc(100% - 32px)}.topbar{height:68px}.nav{gap:14px}.nav a{font-size:11px}.nav .nav-cta{padding:9px 12px}.brand-mark{width:32px;height:32px}.brand-name{font-size:12px}.brand-name small{font-size:8px}.hero{padding:37px 0 32px}h1{font-size:45px;letter-spacing:-2.8px}.hero-copy{font-size:14px}.hero-visual{height:248px}.visual-card{left:17px;top:17px;padding:13px}.visual-card strong{font-size:16px}.pin-one{left:45%;top:111px}.pin-two{top:177px;left:71%}.visual-caption{font-size:8px;right:12px;bottom:13px}.trust-strip{align-items:flex-start;gap:10px;flex-direction:column;margin-bottom:43px}.section-head{align-items:flex-start;flex-direction:column;gap:8px}.section-head h2{font-size:28px}.controls{flex-direction:column}.controls select{width:100%}.grid{grid-template-columns:1fr}.store{min-height:133px}.map-grid{grid-template-columns:1fr;gap:24px}.map-copy h2{font-size:30px}.map-reference{padding:17px}.map-section{padding:44px 0}.guide{padding:42px 0}.guide-copy h2{font-size:30px}.directory{padding-bottom:54px}footer .footer-inner{align-items:flex-start;flex-direction:column}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
+  </style>
 </head>
-
 <body>
-
-<header>
-
-  <div class="brand">FOURWAYS MALL <span>SMART GUIDE</span></div>
-
-  <p>Your mall. Easier to explore.</p>
-
-</header>
-
-<main>
-
-<section class="hero">
-
-  <div style="color:#65dfca;font-size:12px;letter-spacing:2px;font-weight:bold">SMART MALL NAVIGATION</div>
-
-  <h1>Find your way.<br>Discover more.</h1>
-
-  <p>Search for a store or service, explore the demo map, or ask your guide for help.</p>
-
-  <form id="searchForm" class="searchbar">
-
-    <input id="searchInput" placeholder="Try Woolworths, food, ATM..." aria-label="Search stores">
-
-    <button>Search</button>
-
-  </form>
-
-</section>
-
-<section>
-
-  <h2>Find a store</h2>
-
-  <div class="filters" id="filters">
-
-    <button class="active" data-category="All">All</button>
-
-    <button data-category="Shopping">Shopping</button>
-
-    <button data-category="Food">Food</button>
-
-    <button data-category="Services">Services</button>
-
-    <button data-category="Facilities">Facilities</button>
-
-  </div>
-
-  <div id="results" class="store-list" aria-live="polite"></div>
-
-  <p class="small">Prototype directory: entries are examples, not verified tenant listings or actual store locations.</p>
-
-</section>
-
-<section>
-
-  <h2>Interactive mall map</h2>
-
-  <div class="panel">
-
-    <label for="floorSelect"><strong>Select a demo floor</strong></label><br><br>
-
-    <select id="floorSelect">
-
-      <option value="Ground floor">Ground floor</option>
-
-      <option value="First floor">First floor</option>
-
-    </select>
-
-    <p class="muted">Tap a marker to select a destination. The layout below is illustrative only.</p>
-
-    <div class="map-wrap">
-
-      <div class="map" id="map" aria-label="Illustrative clickable demo map">
-
-        <div class="corridor" style="left:8%;top:43%;width:84%;height:18%"></div>
-
-        <div class="corridor" style="left:40%;top:8%;width:18%;height:84%"></div>
-
-        <div id="markers"></div>
-
+  <header class="shell topbar">
+    <a class="brand" href="#top" aria-label="Fourways Mall Guide home"><span class="brand-mark">4</span><span class="brand-name">FOURWAYS MALL<small>VISITOR GUIDE</small></span></a>
+    <nav class="nav" aria-label="Main navigation"><a href="#directory">Store directory</a><a href="#map">Mall map</a><a href="#guide">Ask the guide</a><a class="nav-cta" href="https://fourwaysmall.com/" target="_blank" rel="noreferrer">Official mall site ↗</a></nav>
+  </header>
+  <main id="top">
+    <section class="shell hero">
+      <div><span class="eyebrow">A simpler way around</span><h1>Your next stop,<br><em>found.</em></h1><p class="hero-copy">Search Fourways Mall’s store directory and find the unit number published by the mall. Start with a store name or unit code.</p>
+        <form id="heroSearch" class="searchbox" role="search"><span class="search-icon" aria-hidden="true">⌕</span><input id="heroInput" aria-label="Search the mall directory" placeholder="Try Woolworths, Starbucks, G098…"><button type="submit">Find a store</button></form><p class="search-hint" id="directoryFreshness"></p>
       </div>
-
-      <p class="map-note">DEMO MAP — not a real Fourways Mall floor plan. Positions and floors are not verified.</p>
-
-    </div>
-
-    <div id="destination">Choose a marker or a store from the directory to select a destination.</div>
-
-  </div>
-
-</section>
-
-<section>
-
-  <h2>Ask the Smart Guide</h2>
-
-  <div class="panel">
-
-    <p class="muted">Ask about a store, food, toilets, ATMs or services in the demo directory.</p>
-
-    <div id="messages" aria-live="polite">
-
-      <div class="chat-message">Hi! I'm your demo mall guide. What are you looking for?</div>
-
-    </div>
-
-    <form id="chatForm" class="searchbar">
-
-      <input id="chatInput" placeholder="Where can I find an ATM?" aria-label="Ask the guide" required>
-
-      <button>Ask</button>
-
-    </form>
-
-    <p class="small">This assistant uses sample data and is not yet connected to a real AI service.</p>
-
-  </div>
-
-</section>
-
-</main>
-
-<footer>Fourways Mall Smart Guide · Prototype in development</footer>
-
-<script>
-
-// Example entries only. Verify every real store and location before launch.
-
-const stores = [
-
- {id:"woolworths",name:"Woolworths",category:"Shopping",keywords:"clothing clothes fashion groceries food",floor:"Ground floor",x:24,y:28},
-
- {id:"restaurant",name:"Restaurant area",category:"Food",keywords:"restaurant restaurants eating lunch dinner meals",floor:"Ground floor",x:72,y:27},
-
- {id:"coffee",name:"Coffee shop",category:"Food",keywords:"coffee cafe cappuccino drinks",floor:"First floor",x:25,y:75},
-
- {id:"atm",name:"ATM",category:"Services",keywords:"cash bank money banking",floor:"Ground floor",x:75,y:72},
-
- {id:"restrooms",name:"Restrooms",category:"Facilities",keywords:"toilet toilets bathroom bathrooms washroom",floor:"Ground floor",x:50,y:72},
-
- {id:"information",name:"Information desk",category:"Services",keywords:"help assistance information customer service",floor:"First floor",x:72,y:72},
-
- {id:"parking",name:"Parking",category:"Facilities",keywords:"car vehicle parking entrance",floor:"Ground floor",x:24,y:72}
-
-];
-
-let activeCategory = "All";
-
-let selectedId = null;
-
-let currentFloor = "Ground floor";
-
-let currentQuery = "";
-
-const results = document.getElementById("results");
-
-const markers = document.getElementById("markers");
-
-const destination = document.getElementById("destination");
-
-function matchesQuery(store, query) {
-
-  const q = query.toLowerCase().trim();
-
-  if (!q) return true;
-
-  return (store.name+" "+store.category+" "+store.keywords).toLowerCase().includes(q);
-
-}
-
-function getMatches(query=currentQuery) {
-
-  return stores.filter(s =>
-
-    (activeCategory==="All" || s.category===activeCategory) &&
-
-    matchesQuery(s,query)
-
-  );
-
-}
-
-function renderResults() {
-
-  results.replaceChildren();
-
-  const found = getMatches();
-
-  if (!found.length) {
-
-    const empty = document.createElement("p");
-
-    empty.className = "muted";
-
-    empty.textContent = "No matching demo entry. Try a different name or category.";
-
-    results.append(empty);
-
-    return;
-
-  }
-
-  found.forEach(store => {
-
-    const card = document.createElement("article");
-
-    card.className = "store";
-
-    const heading = document.createElement("h3");
-
-    heading.textContent = store.name;
-
-    const category = document.createElement("p");
-
-    category.textContent = store.category + " · Demo location";
-
-    const floor = document.createElement("p");
-
-    floor.textContent = "Example floor: " + store.floor;
-
-    const choose = document.createElement("button");
-
-    choose.textContent = "Select destination";
-
-    choose.addEventListener("click", () => selectStore(store.id));
-
-    card.append(heading,category,floor,choose);
-
-    results.append(card);
-
-  });
-
-}
-
-function renderMap() {
-
-  markers.replaceChildren();
-
-  const visible = stores.filter(s => s.floor===currentFloor);
-
-  visible.forEach(store => {
-
-    const marker = document.createElement("button");
-
-    marker.className = "marker" + (selectedId===store.id ? " selected" : "");
-
-    marker.style.left = store.x + "%";
-
-    marker.style.top = store.y + "%";
-
-    marker.textContent = store.name;
-
-    marker.setAttribute("aria-label","Select "+store.name);
-
-    marker.addEventListener("click", () => selectStore(store.id));
-
-    markers.append(marker);
-
-  });
-
-  if (!visible.length) {
-
-    markers.textContent = "No demo markers on this floor.";
-
-  }
-
-}
-
-function selectStore(id) {
-
-  const store = stores.find(s => s.id===id);
-
-  if (!store) return;
-
-  selectedId = id;
-
-  currentFloor = store.floor;
-
-  document.getElementById("floorSelect").value = currentFloor;
-
-  destination.textContent = "Selected destination: " + store.name +
-
-    ". Example floor: " + store.floor +
-
-    ". Exact location and walking route are not available yet.";
-
-  renderMap();
-
-}
-
-document.getElementById("searchForm").addEventListener("submit", event => {
-
-  event.preventDefault();
-
-  currentQuery = document.getElementById("searchInput").value;
-
-  renderResults();
-
-  const found = getMatches();
-
-  if (found.length===1) selectStore(found[0].id);
-
-});
-
-document.getElementById("filters").addEventListener("click", event => {
-
-  const button = event.target.closest("button[data-category]");
-
-  if (!button) return;
-
-  activeCategory = button.dataset.category;
-
-  document.querySelectorAll("#filters button").forEach(b =>
-
-    b.classList.toggle("active",b===button)
-
-  );
-
-  renderResults();
-
-});
-
-document.getElementById("floorSelect").addEventListener("change", event => {
-
-  currentFloor = event.target.value;
-
-  selectedId = null;
-
-  destination.textContent = "Showing illustrative markers for " + currentFloor +
-
-    ". Choose a marker to select a destination.";
-
-  renderMap();
-
-});
-
-function addMessage(text,isUser=false) {
-
-  const div = document.createElement("div");
-
-  div.className = "chat-message" + (isUser ? " user" : "");
-
-  div.textContent = text;
-
-  const messages = document.getElementById("messages");
-
-  messages.append(div);
-
-  div.scrollIntoView({block:"nearest"});
-
-}
-
-document.getElementById("chatForm").addEventListener("submit", event => {
-
-  event.preventDefault();
-
-  const input = document.getElementById("chatInput");
-
-  const question = input.value.trim();
-
-  if (!question) return;
-
-  addMessage(question,true);
-
-  const found = stores.filter(s => matchesQuery(s,question));
-
-  if (found.length) {
-
-    addMessage("I found these demo entries: " +
-
-      found.map(s=>s.name+" ("+s.floor+")").join(", ") +
-
-      ". These example locations are not verified, and I cannot provide a real walking route yet.");
-
-  } else {
-
-    addMessage("I couldn't find a match in my sample directory. Try Woolworths, coffee, restaurant, ATM, toilet, parking or information desk.");
-
-  }
-
-  input.value = "";
-
-});
-
-renderResults();
-
-renderMap();
-
-</script>
-
-<script src="./mall-data.js"></script>
-  
+      <div class="hero-visual" aria-hidden="true"><div class="visual-orbit"></div><div class="map-lines"><i></i><i></i><i></i></div><div class="visual-card"><span>Find it. Then go.</span><strong>Your mall, at a glance.</strong></div><div class="pin pin-one"><b>⌖</b></div><div class="pin pin-two"><b>⌖</b></div><div class="visual-caption">Fourways · Johannesburg</div></div>
+    </section>
+    <div class="shell trust-strip"><p><strong>Store details from Fourways Mall</strong> · Unit codes are shown as published.</p><span class="source-badge"><i class="source-dot"></i> Official directory source</span></div>
+    <section class="shell directory" id="directory">
+      <div class="section-head"><div><span class="eyebrow">Browse the mall</span><h2>Find a store</h2><p>Search by name, phone number or published unit code.</p></div><div class="result-count" id="resultCount" aria-live="polite"></div></div>
+      <div class="controls"><input id="directorySearch" type="search" placeholder="Search all stores…" aria-label="Filter stores"><select id="locationFilter" aria-label="Filter by published unit information"><option value="all">All listings</option><option value="unit">Unit number listed</option><option value="missing">Unit number not listed</option></select></div>
+      <div class="grid" id="storeGrid" aria-live="polite"></div><div class="load-more" id="loadMore"></div>
+    </section>
+    <section class="map-section" id="map"><div class="shell map-grid">
+      <div class="map-copy"><span class="eyebrow">Plan your visit</span><h2>Find the store.<br>Know its unit.</h2><p>The mall’s directory gives store unit codes, but doesn’t publish a current interactive floor map. Check the unit number here, then use Fourways Mall’s own directory for the latest store details.</p><button class="gps-button" id="locateButton" type="button">Check my location</button><p class="gps-status" id="gpsStatus" aria-live="polite">Location is used only when you tap the button. Indoor GPS may not be accurate.</p><div class="map-actions"><a class="button-primary" href="https://fourwaysmall.com/store-directory-all.php" target="_blank" rel="noreferrer">Open live mall directory ↗</a><a class="button-secondary" href="https://fgprop.com/wp-content/uploads/2024/10/Fourways-Mall.pdf" target="_blank" rel="noreferrer">View floor plan PDF ↗</a><a class="button-secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=Fourways+Mall,+Johannesburg" target="_blank" rel="noreferrer">Directions to the mall ↗</a><a class="button-secondary" href="./qr-print.html" target="_blank" rel="noreferrer">Print entrance QR poster ↗</a></div></div>
+      <div class="map-reference"><div class="ref-top"><strong>Getting around Fourways Mall</strong><span>Map reference · 2024</span></div><div class="level-list"><div class="level-row"><span class="level-icon">A</span><span><strong>Check the store’s unit code</strong><small>Use the code displayed on each directory listing to match the mall’s signage.</small></span></div><div class="level-row"><span class="level-icon">B</span><span><strong>Open the published floor plans</strong><small>Three mall levels are shown in the linked PDF. It predates recent tenant changes.</small></span></div><div class="level-row"><span class="level-icon">C</span><span><strong>Confirm recent changes with the mall</strong><small>Some store pages do not include a unit number. Centre Management: +27 11 465 6095.</small></span></div></div><p class="map-disclaimer"><strong>Map currency:</strong> The linked floor plans were published in 2024 and may not reflect current store positions. This guide does not show estimated pins or routes. Use the mall’s live directory for current listings.</p></div>
+  </div></section>
+    <section class="shell guide" id="guide"><div class="guide-grid"><div class="guide-copy"><span class="eyebrow">Visitor support</span><h2>Ask the mall guide.</h2><p>Ask for a store, unit code or mall information. Answers are grounded in the published directory. When the AI service is connected, the guide can handle natural questions and follow-ups.</p><p class="guide-note" id="assistantStatus">Directory answers are available. AI chat service setup is required for free-form AI replies.</p></div><div class="chat-panel"><div class="chat-head"><strong>Fourways Mall guide</strong><span class="chat-state" id="chatState">Ready to help</span></div><div class="chat-log" id="chatLog" aria-live="polite" aria-label="Guide conversation"><div class="chat-bubble">Hi! Tell me what you’re looking for. I can search the mall directory for a store or unit code.</div></div><div class="quick-prompts" aria-label="Suggested questions"><button type="button" data-prompt="Where can I find an ATM?">Find an ATM</button><button type="button" data-prompt="Show me coffee shops">Coffee</button><button type="button" data-prompt="How do I contact the mall?">Mall contact</button></div><form class="chat-form" id="chatForm"><input id="chatInput" maxlength="500" autocomplete="off" placeholder="Ask about a store or service…" aria-label="Ask the mall guide"><button type="submit">Ask</button></form></div></div></section>
+  </main>
+  <footer><div class="shell footer-inner"><span><span class="footer-brand">Fourways Mall Guide</span> · Independent visitor guide</span><span>Directory checked 23 Oct 2026 · <a href="https://fourwaysmall.com/store-directory-all.php" target="_blank" rel="noreferrer">Source: Fourways Mall ↗</a></span></div></footer>
+  <script src="./mall-data.js"></script>
+  <script src="./site-config.js"></script>
+  <script>
+    const stores = (window.mallData?.stores || []).slice().sort((a,b) => a.name.localeCompare(b.name));
+    const search = document.getElementById('directorySearch');
+    const filter = document.getElementById('locationFilter');
+    const grid = document.getElementById('storeGrid');
+    const count = document.getElementById('resultCount');
+    const loadMore = document.getElementById('loadMore');
+    const checkedDate = new Date((window.mallData?.lastChecked || '2026-10-23') + 'T12:00:00');
+    document.getElementById('directoryFreshness').textContent = `${stores.length.toLocaleString()} listings · Directory checked ${checkedDate.toLocaleDateString('en-ZA',{day:'numeric',month:'long',year:'numeric'})}`;
+    const pageSize = 24;
+    let visibleCount = pageSize;
+    function filteredStores(){
+      const q=search.value.trim().toLocaleLowerCase();
+      return stores.filter(s=>{
+        const hasUnit=Boolean(s.unit&&s.unit.trim());
+        const locationOk=filter.value==='all'||(filter.value==='unit'&&hasUnit)||(filter.value==='missing'&&!hasUnit);
+        const text=[s.name,s.unit,s.phone].join(' ').toLocaleLowerCase();
+        return locationOk&&(!q||text.includes(q));
+      });
+    }
+    function render(){
+      const found=filteredStores();
+      const shown=found.slice(0,visibleCount);
+      count.innerHTML=`<strong>${found.length.toLocaleString()}</strong> ${found.length===1?'store':'stores'}`;
+      grid.replaceChildren();
+      if(!found.length){const empty=document.createElement('p');empty.className='no-results';empty.textContent='No stores match that search. Try another name or unit code.';grid.append(empty)}
+      for(const store of shown){
+        const card=document.createElement('article');card.className='store';
+        const top=document.createElement('div');top.className='store-top';
+        const title=document.createElement('h3');title.textContent=store.name;
+        const unit=document.createElement('span');unit.className='unit'+(store.unit?'':' missing');unit.textContent=store.unit?`Unit ${store.unit}`:'Unit not listed';
+        top.append(title,unit);
+        const bottom=document.createElement('div');bottom.className='store-bottom';
+        if(store.phone){const phone=document.createElement('a');phone.className='phone';phone.href=`tel:${store.phone.replace(/[^\d+]/g,'')}`;phone.textContent=store.phone;bottom.append(phone)}else{const source=document.createElement('span');source.className='phone';source.textContent='Phone not listed';bottom.append(source)}
+        const link=document.createElement('a');link.className='details';link.href=store.url;link.target='_blank';link.rel='noreferrer';link.textContent='Mall listing ↗';link.setAttribute('aria-label',`Open ${store.name} in the Fourways Mall directory`);bottom.append(link);
+        card.append(top,bottom);grid.append(card);
+      }
+      loadMore.replaceChildren();
+      if(found.length>visibleCount){const button=document.createElement('button');button.type='button';button.textContent=`Show ${Math.min(pageSize,found.length-visibleCount)} more`;button.addEventListener('click',()=>{visibleCount+=pageSize;render()});loadMore.append(button)}
+    }
+    search.addEventListener('input',()=>{visibleCount=pageSize;render()});
+    filter.addEventListener('change',()=>{visibleCount=pageSize;render()});
+    document.getElementById('heroSearch').addEventListener('submit',event=>{event.preventDefault();search.value=document.getElementById('heroInput').value;visibleCount=pageSize;render();document.getElementById('directory').scrollIntoView({behavior:'smooth'})});
+    const chatLog=document.getElementById('chatLog');
+    const chatForm=document.getElementById('chatForm');
+    const chatInput=document.getElementById('chatInput');
+    const chatState=document.getElementById('chatState');
+    if(window.siteConfig?.assistantEndpoint){document.getElementById('assistantStatus').textContent='AI guide connected · Store facts are checked against the published directory.';chatState.textContent='AI guide online'}
+    const addChat=(message,role='assistant',links=[])=>{const bubble=document.createElement('div');bubble.className=`chat-bubble${role==='user'?' user':''}`;bubble.textContent=message;if(links.length){const wrap=document.createElement('span');wrap.className='chat-links';links.forEach((item,index)=>{if(index)wrap.append(document.createTextNode(' · '));const a=document.createElement('a');a.href=item.url;a.target='_blank';a.rel='noreferrer';a.textContent=item.label;wrap.append(a)});bubble.append(wrap)}chatLog.append(bubble);chatLog.scrollTop=chatLog.scrollHeight};
+    const pickStores=query=>{const q=query.toLocaleLowerCase();const words=q.split(/[^\p{L}\p{N}]+/u).filter(word=>word.length>1);const aliases=[];if(/\b(coffee|cafe|café|cappuccino)\b/.test(q))aliases.push(/starbucks|vida e caffe|vida e caffè|mugg & bean|shift espresso|fournos/i);if(/\b(bank|cash|atm)\b/.test(q))aliases.push(/\batm\b|absa|capitec|fnb|nedbank|standard bank|african bank|travelex/i);if(/\b(food|eat|restaurant|lunch|dinner)\b/.test(q))aliases.push(/burger|chicken|pizza|kfc|mcdonald|nando|sp[u]?r|steers|ocean basket|wimpy|restaurant/i);return stores.map(store=>{const name=store.name.toLocaleLowerCase(),hay=`${store.name} ${store.unit} ${store.phone}`.toLocaleLowerCase();const score=words.reduce((sum,word)=>sum+(hay.includes(word)?(name.includes(word)?3:1):0),0)+(aliases.some(alias=>alias.test(store.name))?2:0);return{store,score}}).filter(item=>item.score>0).sort((a,b)=>b.score-a.score).slice(0,5).map(item=>item.store)};
+    const localAnswer=question=>{const q=question.toLocaleLowerCase();if(/\b(hours|open|opening|close|closing|time)\b/.test(q))return{text:'The mall’s published minimum shopping hours are Monday to Saturday, 09:00–20:00, and Sundays and public holidays, 09:00–19:00. Some stores may trade longer. Check the mall’s live website before you travel.',links:[{label:'Official mall website',url:'https://fourwaysmall.com/'}]};if(/\b(contact|phone|call|management|help)\b/.test(q))return{text:'Fourways Mall Centre Management lists +27 11 465 6095. Check the mall’s official website for current visitor information.',links:[{label:'Official mall website',url:'https://fourwaysmall.com/'}]};if(/\b(gps|directions|route|entrance|near me|where am i)\b/.test(q))return{text:'I can check whether your phone provides a GPS location, but the mall has not published a current indoor map with entrance and store coordinates for this guide. I can show a store’s published unit code, but can’t give a verified indoor route.',links:[{label:'Directions to Fourways Mall',url:'https://www.google.com/maps/dir/?api=1&destination=Fourways+Mall,+Johannesburg'}]};const matches=pickStores(question);if(matches.length)return{text:`I found ${matches.length===1?'this listing':'these listings'} in the mall directory. Unit codes are shown as published; they aren’t plotted indoor directions.`,links:matches.map(store=>({label:`${store.name}${store.unit?` · Unit ${store.unit}`:''}`,url:store.url}))};return{text:'I couldn’t find a matching store in the current directory. Try a shorter store name or unit code, or check the mall’s live directory.',links:[{label:'Open live mall directory',url:'https://fourwaysmall.com/store-directory-all.php'}]}};
+    async function askGuide(question){addChat(question,'user');chatInput.value='';chatState.textContent='Looking that up…';const submit=chatForm.querySelector('button');submit.disabled=true;const matches=pickStores(question);const history=[...chatLog.querySelectorAll('.chat-bubble')].slice(-8).map(bubble=>({role:bubble.classList.contains('user')?'user':'assistant',content:bubble.textContent}));try{const endpoint=window.siteConfig?.assistantEndpoint;if(!endpoint){const answer=localAnswer(question);addChat(answer.text,'assistant',answer.links);return}const response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:question,history,stores:matches.map(store=>({name:store.name,unit:store.unit,phone:store.phone,url:store.url}))})});if(!response.ok)throw new Error('The guide service is temporarily unavailable.');const data=await response.json();addChat(data.answer||'I couldn’t find a reliable answer. Please check with the mall team.','assistant',data.stores||[])}catch(error){addChat(`${error.message||'The guide service is unavailable'} I can still search the published directory.`);const answer=localAnswer(question);addChat(answer.text,'assistant',answer.links)}finally{chatState.textContent='Ready to help';submit.disabled=false;chatInput.focus()}}
+    chatForm.addEventListener('submit',event=>{event.preventDefault();const question=chatInput.value.trim();if(question)askGuide(question)});
+    document.querySelectorAll('[data-prompt]').forEach(button=>button.addEventListener('click',()=>askGuide(button.dataset.prompt)));
+    document.getElementById('locateButton').addEventListener('click',()=>{const status=document.getElementById('gpsStatus');if(!navigator.geolocation){status.textContent='This browser does not provide location services.';return}status.textContent='Requesting your location…';navigator.geolocation.getCurrentPosition(position=>{const accuracy=Math.round(position.coords.accuracy);status.textContent=`Your phone reports a location with about ${accuracy} m accuracy. Phone GPS can be unreliable indoors, and this guide cannot turn it into an in-mall route.`},error=>{status.textContent=error.code===1?'Location permission was not granted. You can still search the directory.':'Could not get a GPS fix. Try again outdoors or use the store directory.'},{enableHighAccuracy:true,timeout:12000,maximumAge:30000})});
+    if('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) navigator.serviceWorker.register('./sw.js').catch(()=>{});
+    render();
+  </script>
 </body>
-
 </html>
