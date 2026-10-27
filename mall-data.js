@@ -1,7 +1,7 @@
 window.mallData = {
   "project": "Fourways Mall Smart Guide",
   "source": "https://fourwaysmall.com/store-directory-all.php",
-  "lastChecked": "2026-10-25",
+  "lastChecked": "2026-10-27",
   "stores": [
     {
       "name": "Ariana",
@@ -794,6 +794,12 @@ window.mallData = {
       "unit": "LK07",
       "phone": "",
       "url": "https://fourwaysmall.com/store/baglios/67052"
+    },
+    {
+      "name": "Banchan",
+      "unit": "",
+      "phone": "063 628 4783",
+      "url": "https://fourwaysmall.com/store/banchan/67445"
     },
     {
       "name": "Burger King",
