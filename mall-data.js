@@ -1,7 +1,7 @@
 window.mallData = {
   "project": "Fourways Mall Smart Guide",
   "source": "https://fourwaysmall.com/store-directory-all.php",
-  "lastChecked": "2026-10-27",
+  "lastChecked": "2026-10-28",
   "stores": [
     {
       "name": "Ariana",
