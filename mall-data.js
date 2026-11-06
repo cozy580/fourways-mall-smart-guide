@@ -1,7 +1,7 @@
 window.mallData = {
   "project": "Fourways Mall Smart Guide",
   "source": "https://fourwaysmall.com/store-directory-all.php",
-  "lastChecked": "2026-11-04",
+  "lastChecked": "2026-11-06",
   "stores": [
     {
       "name": "Ariana",
@@ -646,6 +646,12 @@ window.mallData = {
       "url": "https://fourwaysmall.com/store/mr-price/63253"
     },
     {
+      "name": "New Balance",
+      "unit": "",
+      "phone": "",
+      "url": "https://fourwaysmall.com/store/new-balance/67452"
+    },
+    {
       "name": "Nicci 2",
       "unit": "NG93",
       "phone": "011 467 2416",
@@ -878,12 +884,6 @@ window.mallData = {
       "unit": "L006",
       "phone": "",
       "url": "https://fourwaysmall.com/store/lollipops-sweet-station/66385"
-    },
-    {
-      "name": "Love Matcha",
-      "unit": "",
-      "phone": "",
-      "url": "https://fourwaysmall.com/store/love-matcha/67279"
     },
     {
       "name": "McDonalds",
