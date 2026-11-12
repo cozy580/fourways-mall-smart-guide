@@ -1,7 +1,7 @@
 window.mallData = {
   "project": "Fourways Mall Smart Guide",
   "source": "https://fourwaysmall.com/store-directory-all.php",
-  "lastChecked": "2026-11-11",
+  "lastChecked": "2026-11-12",
   "stores": [
     {
       "name": "Ariana",
@@ -368,6 +368,12 @@ window.mallData = {
       "unit": "NG83",
       "phone": "010 102 0008",
       "url": "https://fourwaysmall.com/store/cash-crusaders/67221"
+    },
+    {
+      "name": "Green Screen Golf",
+      "unit": "",
+      "phone": "078 894 4091",
+      "url": "https://fourwaysmall.com/store/green-screen-golf/67462"
     },
     {
       "name": "Shooters",
@@ -1034,6 +1040,12 @@ window.mallData = {
       "unit": "",
       "phone": "",
       "url": "https://fourwaysmall.com/store/yumi/67238"
+    },
+    {
+      "name": "George’s Grill House",
+      "unit": "",
+      "phone": "010 077 2425",
+      "url": "https://fourwaysmall.com/store/georges-grill-house/67461"
     },
     {
       "name": "Aldo",
