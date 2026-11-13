@@ -1,7 +1,7 @@
 window.mallData = {
   "project": "Fourways Mall Smart Guide",
   "source": "https://fourwaysmall.com/store-directory-all.php",
-  "lastChecked": "2026-11-12",
+  "lastChecked": "2026-11-13",
   "stores": [
     {
       "name": "Ariana",
@@ -24,7 +24,7 @@ window.mallData = {
     {
       "name": "Tom Toc",
       "unit": "NG32",
-      "phone": "060 504 0015",
+      "phone": "",
       "url": "https://fourwaysmall.com/store/tom-toc/67060"
     },
     {
