@@ -1,7 +1,7 @@
 window.mallData = {
   "project": "Fourways Mall Smart Guide",
   "source": "https://fourwaysmall.com/store-directory-all.php",
-  "lastChecked": "2026-11-17",
+  "lastChecked": "2026-11-18",
   "stores": [
     {
       "name": "Ariana",
@@ -1586,6 +1586,12 @@ window.mallData = {
       "unit": "CF01",
       "phone": "011 496 7138",
       "url": "https://fourwaysmall.com/store/chelino-baby/63171"
+    },
+    {
+      "name": "Ciara’s Kidz Corner",
+      "unit": "",
+      "phone": "063 177 7227",
+      "url": "https://fourwaysmall.com/store/ciaras-kidz-corner/67468"
     },
     {
       "name": "Me&B",
