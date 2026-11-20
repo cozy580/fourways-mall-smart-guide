@@ -1176,7 +1176,7 @@ window.mallData = {
     {
       "name": "Deadline Fast Fades",
       "unit": "",
-      "phone": "084 888 9933",
+      "phone": "084 444 1199",
       "url": "https://fourwaysmall.com/store/deadline-fast-fades/67308"
     },
     {
